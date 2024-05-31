@@ -21,17 +21,17 @@ blogRouter.use('/*', async (c, next) => {
     // if not, we return the user a 403 status code
   
     const header = c.req.header("Authorization") || "";
-    if(!header || header.split(" ").length < 2){
+    if(!header){
       c.status(403)
       return c.json({error: "unauthorized"});
     }
   
-    const token = header.split(" ")[1]
+    
 
   
     
     
-    const responce = await verify(token, c.env.JWT_SECRET)
+    const responce = await verify(header, c.env.JWT_SECRET)
     if(!responce){
       c.status(403);
       return c.json({error: "unauthorized"});
@@ -47,7 +47,22 @@ blogRouter.get('/bulk', async (c)=>{
 		datasourceUrl: c.env?.DATABASE_URL	,
 	}).$extends(withAccelerate());
    
-    const blogs = await prisma.post.findMany();
+  const blogs = await prisma.post.findMany({
+    select: {
+        content: true,
+        title: true,
+        id: true,
+        author: {
+            select: {
+                name: true
+            }
+        }
+    }
+});
+
+return c.json({
+    blogs
+})
     return c.json({blogs})
     
     

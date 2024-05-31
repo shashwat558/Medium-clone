@@ -37,10 +37,10 @@ userRouter.post('/signup', async (c) => {
     console.log('dfd')
     //@ts-ignore
     const token = await sign({id: user.id}, c.env.JWT_SECRET)
-    return c.json({
+    return c.text(
      
-      jwt: token
-    })
+      token
+    )
 	
 		
 	} catch(e) {
@@ -81,5 +81,5 @@ userRouter.post('/signin', async (c) => {
     })
   }
   const token = await sign({id: user.id}, c.env.JWT_SECRET)
-  return c.json({  token })
+  return c.text(token)
 })
