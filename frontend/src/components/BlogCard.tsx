@@ -46,14 +46,14 @@ export const BlogCard = ({
   )
 }
 
-function Circle(){
+export function Circle(){
     return <div className="h-1 w-1 rounded-full bg-slate-500">
 
     </div>
 }
 
 export function Avatar({name, size = "small"}: {name:string, size?: "small" | "big"}){
-    return <div className={`relative inline-flex items-center justify-center w-6 h-6 overflow-hidden bg-gray-100 rounded-full ${size === "small"? "w-6 h-6": "w-10 h-10"} dark:bg-gray-600`}>
+    return <div className={`relative inline-flex items-center justify-center w-6 h-6 overflow-hidden bg-gray-100 rounded-full ${size === "small"? "w-6 h-6": "w-11 h-11"} dark:bg-gray-600`}>
     <span className={`font-extralight text-md text-gray-600 dark:text-gray-300 ${size === "small"? "text-xs": "text-xl"}`}>{name[0]}</span>
 </div>
 }
